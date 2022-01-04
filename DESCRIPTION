@@ -1,0 +1,24 @@
+Package: sumo
+Title: Use the right statistical tests to compare two means 
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Damien",
+           family = "Dufour",
+           role = c("aut", "cre"),
+           email = "damien.dufour95@gmail.com",
+           comment = c(ORCID = "0000-0002-1220-1745"))
+Description: CompMoy will define if your set of data are normal and if their variances are the same. It will then use the proper test to compare 2 (Comp2Moy) or more (Comp3Moy) means.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    stats,
+    rstatix,
+    methods,
+    ggplot2
