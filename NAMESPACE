@@ -3,6 +3,7 @@
 export(Comp2Moy)
 export(Comp3Moy)
 export(GSEA)
+export(SourceAll)
 export(graphsumo)
 export(make_project)
 export(save_pheatmap)
