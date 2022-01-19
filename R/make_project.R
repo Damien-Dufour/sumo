@@ -42,7 +42,7 @@ make_project <- function (path,
   file.create(nameDoc)
   file.create(configFile)
   sink(nameMain)
-  cat("\n# Clean up ----------------------------------------------------------------\nrm(list = ls())\n\n# Load Packages and Sources -----------------------------------------------\n\n\n# Load Data ---------------------------------------------------------------\nsetwd(dirname(rstudioapi::getActiveDocumentContext()$path))\n\n")
+  cat("\n# Clean up ----------------------------------------------------------------\nrm(list = ls())\n\n# Load Packages and Sources -----------------------------------------------\nlibrary(sumo)\nSourceAll()\n\n# Load Data ---------------------------------------------------------------\nsetwd(dirname(rstudioapi::getActiveDocumentContext()$path))\n\n")
   cat("# Clean -------------------------------------------------------------------\n\n\n# Start working -----------------------------------------------------------\n\n\n# DEBUG ZONE --------------------------------------------------------------\n\n# END DEBUG ZONE ----------------------------------------------------------\n")
   sink()
   sink(nameDoc)
