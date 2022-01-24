@@ -3,13 +3,15 @@
 #'
 #' @name graphsumo
 #'
-#' @param dataset the dataset organized as col = cond, Name, value and 1 row = 1 obs from 1 sample
+#' @param dataset dataset organised as col = c(condition, value) and 1 row = 1 sample
 #' @param abs parameter to be plotted in x ex : genotype
 #' @param ord parameter to be plotted in y ex : value
 #' @param MFV can be vir for viridis scale, male for b&w or female for red&white
-#' @param alpha transparence
+#' @param alphajitter transparence
 #' @param n number of populations
 #' @description plot a nice and consistent graph
+#'
+#' @import ggplot2
 #'
 #' @examples
 #'
@@ -18,7 +20,7 @@
 #' @export
 graphsumo = function(dataset, abs, ord, MFV = "vir", alphajitter = 1 ,n)
   {
-  library(ggplot2)
+
 
 
 

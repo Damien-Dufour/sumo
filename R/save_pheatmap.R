@@ -4,14 +4,16 @@
 #' @name save_pheatmap
 #'
 #' @param x heatmap name
-#' @param filename directory and name with extension
+#' @param filename directory and name with extension (pdf or png)
+#' @param width,height the width and height of the graphics region in inches
 #'
-
+#'
 #' @description save pheatmap
 #' @import rstatix
+#' @import pheatmap
+#' @importFrom grDevices dev.off pdf png
 #'
 #' @examples
-#'
 #'
 #'
 #' @export

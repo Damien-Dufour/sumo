@@ -12,7 +12,6 @@
 #'
 #' @export
 make_project <- function (path,
-                          ref = TRUE,
                           IHC =FALSE)
 {
   if (!dir.exists(path))
@@ -29,21 +28,23 @@ make_project <- function (path,
   dir.create("Figures")
   dir.create("Docs")
   dir.create("Gist")
+  dir.create("References")
   if(IHC == TRUE)
     {
   dir.create("QP_analysis")
   dir.create("czi")
   dir.create("jpg")
   }
-  if (ref) {
-    dir.create("References")
-  }
+
   file.create(nameMain)
   file.create(nameDoc)
   file.create(configFile)
   sink(nameMain)
-  cat("\n# Clean up ----------------------------------------------------------------\nrm(list = ls())\n\n# Load Packages and Sources -----------------------------------------------\nlibrary(sumo)\nSourceAll()\n\n# Load Data ---------------------------------------------------------------\nsetwd(dirname(rstudioapi::getActiveDocumentContext()$path))\n\n")
-  cat("# Clean -------------------------------------------------------------------\n\n\n# Start working -----------------------------------------------------------\n\n\n# DEBUG ZONE --------------------------------------------------------------\n\n# END DEBUG ZONE ----------------------------------------------------------\n")
+  cat("\n# Clean up ----------------------------------------------------------------\nrm(list = ls())\n")
+  cat("\n# Load Packages and Sources -----------------------------------------------\nlibrary(sumo)\nSourceAll()\n")
+  cat("\n# Load Data ---------------------------------------------------------------\nsetwd(dirname(rstudioapi::getActiveDocumentContext()$path))\n\n")
+  cat("# Clean -------------------------------------------------------------------\n\n\n# Start working -----------------------------------------------------------\n\n")
+  cat("\n# DEBUG ZONE --------------------------------------------------------------\n\n# END DEBUG ZONE ----------------------------------------------------------\n")
   sink()
   sink(nameDoc)
   cat(paste("---\ntitle: ", "\"Working notes for ", basename(path),

@@ -9,10 +9,11 @@
 
 #' @description Compare 2 dataset using the right test according to normality and variances
 #' @import rstatix
+#' @import stats
 #'
 #' @examples
 #'
-#'
+#' Comp2Moy(iris$Sepal.Length,iris$Petal.Length)
 #'
 #' @export
 Comp2Moy <- function(Measure1, Measure2)
@@ -22,8 +23,8 @@ Comp2Moy <- function(Measure1, Measure2)
   Homoscedtest<-var.test(Measure1, Measure2)
 
   if (Homoscedtest$p.value>=0.05)
-    (show("same variance")
-    )else(show("different variances")
+    (print("same variance")
+    )else(print("different variances")
     )
 
    ##normality (if pval<0.05 then non normal)
@@ -33,12 +34,12 @@ Comp2Moy <- function(Measure1, Measure2)
 
 
   if (testnorm1$p.value>=0.05)
-    (show("Measure 1 normally distributed")
-    )else(show("Measure 1 non normal")
+    (print("Measure 1 normally distributed")
+    )else(print("Measure 1 non normal")
     )
   if (testnorm2$p.value>=0.05)
-    (show("Measure 1 normally distributed")
-    )else(show("Measure 1 non normal")
+    (print("Measure 1 normally distributed")
+    )else(print("Measure 1 non normal")
     )
 
 

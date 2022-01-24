@@ -9,21 +9,19 @@
 #' @param n is the number or replicates per condition
 #'
 #'
-#' @description Compare 3 or more datasets using the right test according to normality and variances
-#'
+#' @description Compare 2 or more datasets using the right test according to normality and variances
+#' Condition and Measure should be different columns of the same dataset (Dataset$colA)
 #'  @import rstatix
 #'  @import dplyr
-#'  @importFrom methods show
-#'
 #'  @examples
 #'
-#'    Comp3Moy(Dataset$sex, Dataset$size)
+#'    Comp3Moy(iris$Species, iris$Sepal.Length, n=150)
 #'
 #' @export
 Comp3Moy <- function(Condition, Measure,n=3)
-{ ##compare 3 or more distributions
-  ###Condition and Measure should be different columns of the same dataset (Dataset$colA)
-  # homoscedasticity (if pval<0.05 then diff variances)----------------
+{
+
+  # homoscedasticity (if P-val<0.05 then diff variances)------------------------
 
   x <- data.frame(Condition = Condition,
                   Measure = Measure)
@@ -33,14 +31,13 @@ Comp3Moy <- function(Condition, Measure,n=3)
 
   if(Barlett$p.value>=0.05)
   {
-    show("homoscedasticity")
+    print("homoscedasticity")
   }else{
-    show("different variances")
+    print("different variances")
   }
 
 
-
-  #normality (if pval<0.05 then non normal) ------------------------------------
+  #normality (if P-val<0.05 then non normal) -----------------------------------
 
   Np <- "normally distributed" #until challenged
 
@@ -64,7 +61,7 @@ Comp3Moy <- function(Condition, Measure,n=3)
    for(i in c(1:nrow(Norm)))
    {
      if (Norm[i,4] < 0.05)
-       Np <- "non normal"
+       Np <- "non normal"    #create a table for every populations, if one of them is not normal, then non normality of the whole dataset is assumed
    }
   }
 
@@ -75,26 +72,26 @@ Comp3Moy <- function(Condition, Measure,n=3)
     normalitytest <- "Not enough samples for normality test"
     Np <- ""
   }
-  show(c(normalitytest,
+  print(c(normalitytest,
          Np))
 
 
-  # anova with homoscedascity and normality -------------------------------
+  # anova with homoscedascity and normality ------------------------------------
 
   if(Barlett$p.value>=0.05& Np == "normally distributed")
   {
     test <- aov(Measure ~ Condition, x)
     anova <- summary(test)
-    show(anova)
+    print(anova)
 
     tt <- pairwise.t.test(x$Measure,
                           x$Condition,
                           p.adjust.method = "fdr")
-    show("pairwise t.test :")
+    print("pairwise t.test :")
     return(tt)
   }else{
 
- # anova without homoscedascity but normal distribution (Welch anova) ------------
+ # anova without homoscedascity but normal distribution (Welch anova) ----------
 
     if(Barlett$p.value<=0.05& Np == "normally distributed")
     {
@@ -102,14 +99,14 @@ Comp3Moy <- function(Condition, Measure,n=3)
       welch <- welch_anova_test(x,
                                 Measure ~ Condition)
 
-      show(welch)
+      print(welch)
       if(welch$p <= 0.05)
       {
         tt <- pairwise.t.test(x$Measure,
                               x$Condition,
                               p.adjust.method = "fdr",
                               pool.sd=FALSE)
-        show("pairwise t.test :")
+        print("pairwise t.test :")
         return(tt)
       }
 
@@ -117,7 +114,7 @@ Comp3Moy <- function(Condition, Measure,n=3)
     }else{
 
 
- # anova without normality (kruskal wallis) ------------
+ # anova without normality (kruskal wallis) ------------------------------------
 
 
       Krus <- kruskal.test(Measure ~ Condition, x)
@@ -126,16 +123,16 @@ Comp3Moy <- function(Condition, Measure,n=3)
       effsiz <- kruskal_effsize(x, Measure ~ Condition)
 
       if(effsiz$effsize<=0.06)
-        (show("small effect")
+        (print("small effect")
         )else(
           if(effsiz$effsize>=0.14)
-            (show("large effect")
+            (print("large effect")
             )else(
-              show("medium effect")
+              print("medium effect")
             )
         )
-      show("Krus :")
-      show(Krus$p.value)
+      print("Krus :")
+      print(Krus$p.value)
       DT <- dunn_test(x, Measure ~ Condition, p.adjust.method = "fdr")
       return(DT)
     }
