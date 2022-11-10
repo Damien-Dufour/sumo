@@ -5,14 +5,21 @@
 #'
 #' @param path = path
 #' @param IHC true if it's an IHC and I want jpg, czi and QP folders
-#' @description Strongly inspired by "https://github.com/nibortolum/manageproject". but more specific to my style of coding
+#' @param path_to_QuPath the path where the QuPath (console).exe is located (Only works with QuPath0.3.2)
+#'
+#' @description Strongly inspired by "https://github.com/nibortolum/manageproject". but contains extra specific features
+#' IHC=T provides folder to store raw and cropped pictures and create a QuPath project for further analyses
+#' Detection of current directory enables more flexibility
+#' SourceAll function makes things easier when a lot of external functions are used
+#'
 #'
 #' @examples
 #'
 #'
 #' @export
 make_project <- function (path,
-                          IHC =FALSE)
+                          IHC = FALSE,
+                          path_to_QuPath)
 {
   if (!dir.exists(path))
     dir.create(path)
@@ -30,10 +37,37 @@ make_project <- function (path,
   dir.create("Gist")
   dir.create("References")
   if(IHC == TRUE)
-    {
+    {if (missing(path_to_QuPath)) {
+      stop("Path argument is required")}
   dir.create("QP_analysis")
   dir.create("czi")
   dir.create("jpg")
+  file.create("test.groovy")
+
+  sink(file = "test.groovy")
+
+  cat('import java.awt.image.BufferedImage
+import qupath.lib.images.servers.ImageServerProvider
+
+// Paths
+def directory = new File("./QP_analysis/project")
+
+// Create project
+def project = Projects.createProject(directory , BufferedImage.class)
+
+// Changes should now be reflected in the project directory
+project.syncChanges()
+
+print("Project created")')
+
+  sink()
+
+  system(paste0(path_to_QuPath,
+                '"QuPath-0.3.2 (console).exe" script ',
+                getwd(),
+                "/test.groovy"),
+         intern = T)
+  file.remove("test.groovy")
   }
 
   file.create(nameMain)
@@ -41,8 +75,9 @@ make_project <- function (path,
   file.create(configFile)
   sink(nameMain)
   cat("\n# Clean up ----------------------------------------------------------------\nrm(list = ls())\n")
-  cat("\n# Load Packages and Sources -----------------------------------------------\nlibrary(sumo)\nSourceAll()\n")
-  cat("\n# Load Data ---------------------------------------------------------------\nsetwd(dirname(rstudioapi::getActiveDocumentContext()$path))\n\n")
+  cat("\n# Load Packages and Sources -----------------------------------------------\n\nsetwd(dirname(rstudioapi::getActiveDocumentContext()$path))\n\nlibrary(sumo)")
+  cat("\n\nSourceAll()\n")
+  cat("\n# Load Data ---------------------------------------------------------------\n\n")
   cat("# Clean -------------------------------------------------------------------\n\n\n# Start working -----------------------------------------------------------\n\n")
   cat("\n# DEBUG ZONE --------------------------------------------------------------\n\n# END DEBUG ZONE ----------------------------------------------------------\n")
   sink()
