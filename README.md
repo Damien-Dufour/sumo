@@ -1,6 +1,6 @@
 # sumo
 
-This pachage contains various functions related to statistics, data visualisation, data organisation and image analysis.
+This package contains various functions related to statistics, data visualisation, data organisation and image analysis.
 
 Make_project() create a environement with classical folder structures (Data, Figures, Docs, References, Sources, Gist) a mainscript at the root.
 If IHC = TRUE, it will create czi folder to store raw images, jpg folder and QP_analysis folder containing a QuPath project for further analyses.
