@@ -7,7 +7,7 @@
 graphsumo(dataset, abs, ord, MFV = "vir", alphajitter = 1, n)
 }
 \arguments{
-\item{dataset}{the dataset organized as col = cond, Name, value and 1 row = 1 obs from 1 sample}
+\item{dataset}{dataset organised as col = c(condition, value) and 1 row = 1 sample}
 
 \item{abs}{parameter to be plotted in x ex : genotype}
 
@@ -15,9 +15,9 @@ graphsumo(dataset, abs, ord, MFV = "vir", alphajitter = 1, n)
 
 \item{MFV}{can be vir for viridis scale, male for b&w or female for red&white}
 
-\item{n}{number of populations}
+\item{alphajitter}{transparence}
 
-\item{alpha}{transparence}
+\item{n}{number of populations}
 }
 \description{
 plot a nice and consistent graph

@@ -4,17 +4,18 @@
 \alias{make_project}
 \title{make_project}
 \usage{
-make_project(path, ref = TRUE, IHC = FALSE)
+make_project(path, IHC = FALSE, path_to_QuPath)
 }
 \arguments{
-\item{path}{= path}
+\item{path}{path where to create project}
 
 \item{IHC}{true if it's an IHC and I want jpg, czi and QP folders}
+
+\item{path_to_QuPath}{the path where the QuPath (console).exe is located, should look like this on windows "C:/Users/user_name/AppData/Local/QuPath-0.4.1/"}
 }
 \description{
-Strongly inspired by "https://github.com/nibortolum/manageproject". but more specific to my style of coding
-}
-\examples{
-
-
+Strongly inspired by "https://github.com/nibortolum/manageproject". but contains extra specific features
+IHC=T provides folder to store raw and cropped pictures and create a QuPath project for further analyses
+Detection of current directory enables more flexibility
+SourceAll function makes things easier when a lot of external functions are used
 }

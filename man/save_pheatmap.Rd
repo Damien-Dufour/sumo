@@ -9,13 +9,18 @@ save_pheatmap(x, filename, width = 480, height = 960)
 \arguments{
 \item{x}{heatmap name}
 
-\item{filename}{directory and name with extension}
+\item{filename}{directory and name with extension (pdf or png)}
+
+\item{width, height}{the width and height of the graphics region in inches}
 }
 \description{
-save pheatmap
+save pheatmap in pdf or png
 }
 \examples{
 
-
+  \dontrun{
+  HM <- pheatmap(iris[,-5])
+  save_pheatmap(HM, "path/Heatmap.png")
+           }
 
 }

@@ -16,6 +16,6 @@ Compare 2 dataset using the right test according to normality and variances
 }
 \examples{
 
-
+Comp2Moy(iris$Sepal.Length,iris$Petal.Length)
 
 }

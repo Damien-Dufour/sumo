@@ -12,7 +12,3 @@ triQP(df)
 \description{
 will create 2 columns containing respectively the genotype and the sex of the samples
 }
-\examples{
-
-
-}

@@ -7,21 +7,18 @@
 Comp3Moy(Condition, Measure, n = 3)
 }
 \arguments{
-\item{Condition}{the different conditions named in the same column
-library}
+\item{Condition}{the different conditions named in the same column}
 
 \item{Measure}{the values measured for every sample}
 
 \item{n}{is the number or replicates per condition}
 }
 \description{
-Compare 3 or more datasets using the right test according to normality and variances
-
+Compare 2 or more datasets using the right test according to normality and variances
+Condition and Measure should be different columns of the same dataset (Dataset$colA)
 @import rstatix
 @import dplyr
-@importFrom methods show
-
 @examples
 
-Comp3Moy(Dataset$sex, Dataset$size)
+Comp3Moy(iris$Species, iris$Sepal.Length, n=150)
 }
