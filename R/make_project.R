@@ -3,15 +3,16 @@
 #'
 #' @name make_project
 #'
-#' @param path = path
+#' @param path path where to create project
 #' @param IHC true if it's an IHC and I want jpg, czi and QP folders
-#' @param path_to_QuPath the path where the QuPath (console).exe is located (Only works with QuPath0.3.2)
+#' @param path_to_QuPath the path where the QuPath (console).exe is located, should look like this on windows "C:/Users/user_name/AppData/Local/QuPath-0.4.1/"
 #'
 #' @description Strongly inspired by "https://github.com/nibortolum/manageproject". but contains extra specific features
 #' IHC=T provides folder to store raw and cropped pictures and create a QuPath project for further analyses
 #' Detection of current directory enables more flexibility
 #' SourceAll function makes things easier when a lot of external functions are used
 #'
+#' @import stringr
 #'
 #' @examples
 #'
@@ -39,6 +40,9 @@ make_project <- function (path,
   if(IHC == TRUE)
     {if (missing(path_to_QuPath)) {
       stop("Path argument is required")}
+
+    QuPath_version <- str_sub(path_to_QuPath, start = -6, end = -2)
+
   dir.create("QP_analysis")
   dir.create("czi")
   dir.create("jpg")
@@ -50,7 +54,7 @@ make_project <- function (path,
 import qupath.lib.images.servers.ImageServerProvider
 
 // Paths
-def directory = new File("./QP_analysis/project")
+def directory = new File("./QP_analysis/project.qpproj")
 
 // Create project
 def project = Projects.createProject(directory , BufferedImage.class)
@@ -63,9 +67,11 @@ print("Project created")')
   sink()
 
   system(paste0(path_to_QuPath,
-                '"QuPath-0.3.2 (console).exe" script ',
-                getwd(),
-                "/test.groovy"),
+                '"QuPath-',
+                QuPath_version,
+                ' (console).exe" script "',
+                pathf,
+                '/test.groovy"'),
          intern = T)
   file.remove("test.groovy")
   }
