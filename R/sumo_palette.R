@@ -10,6 +10,8 @@
 #'
 #' @examples
 #'
+#'library(ggplot2)
+#'
 #'ggplot(iris)+
 #'  aes(x = Species,
 #'      y = Sepal.Length,
@@ -18,22 +20,12 @@
 #'  scale_color_manual(values = sumo_pal())+
 #'  theme_classic()
 #'
+#'
 #' @export
 sumo_pal <- function(x = 6)
 {
   #create the basis of colours, this one is based on Hokusai's wave
-  if(x == 2)
-  {
-    pal <- c("#011640",
-             "#BF9663")
 
-  }else{
-    if(x == 3)
-    {
-      pal <- c("#011640",
-               "#7BA696",
-               "#BF9663")
-    }else{
 
     pal <- c("#011640",
              "#2D5873",
@@ -89,9 +81,21 @@ sumo_pal <- function(x = 6)
       }
 
     }
-    pal <- rgb2col(rgb_col)
+    temp <- rgb2col(rgb_col)
 
-  }}
+
+    fn_cols <- colorRamp(temp,
+                         space = "Lab",
+                         interpolate = "spline")
+
+    cols <- t(fn_cols(seq(0,
+                          1,
+                          length.out = x)))
+
+    pal <- rgb2col(cols)
+
+
+
   return(pal)
 }
 
