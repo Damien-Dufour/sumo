@@ -12,3 +12,5 @@ Comp3Moy() is made to compare means of two or more distributions in a dataset. B
 graphsumo() creates graphs with ggplot2 made from a scatter plot and violin plot where the median is representated by an horizontal line and the mean by a cross. 
 
 save_pheatmap() is a small function to easily save heatmap made with pheatmap in .png or .pdf in a similar fashion to the ggsave() function.
+
+sumo_pal() creates a colour palette based on Hokusai's great wave off Kanagawa (I might create new ones eventually), it only works for discrete variable at the moment
