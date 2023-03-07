@@ -4,7 +4,7 @@
 #' @name make_project
 #'
 #' @param path path where to create project
-#' @param IHC true if it's an IHC and I want jpg, czi and QP folders
+#' @param IHC true if it's an IHC and I want tiff, czi and QP folders
 #' @param path_to_QuPath the path where the QuPath (console).exe is located, should look like this on windows "C:/Users/user_name/AppData/Local/QuPath-0.4.1/"
 #'
 #' @description Strongly inspired by "https://github.com/nibortolum/manageproject". but contains extra specific features
@@ -44,8 +44,8 @@ make_project <- function (path,
     QuPath_version <- str_sub(path_to_QuPath, start = -6, end = -2)
 
   dir.create("QP_analysis")
-  dir.create("czi")
-  dir.create("jpg")
+  dir.create("Raw_images")
+  dir.create("Pictures")
   file.create("test.groovy")
 
   sink(file = "test.groovy")
@@ -88,8 +88,8 @@ print("Project created")')
   cat("\n# DEBUG ZONE --------------------------------------------------------------\n\n# END DEBUG ZONE ----------------------------------------------------------\n")
   sink()
   sink(nameDoc)
-  cat(paste("---\ntitle: ", "\"Working notes for ", basename(path),
-            " project\"\nauthor:\n - First Name, Last Name\noutput: pdf_document\nfontsize: 12pt\n---\n   \n# My first Idea\nwhat it is\n",
+  cat(paste("---\ntitle: ", basename(path),
+            "\noutput: pdf_document\nfontsize: 12pt\n---\n",
             sep = ""))
   sink()
 }
