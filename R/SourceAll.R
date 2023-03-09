@@ -13,7 +13,12 @@
 SourceAll <- function()
   {if(nrow(data.frame(list.files("Sources/"))) != 0)
     {
-  files.sources = list.files("Sources/") #get all the files in Sources folder
+
+#get all the files in Sources folder that finishes in .R
+
+  files.sources = list.files("Sources/")  %>%
+    subset(endsWith(files.sources,
+                    ".R") == T)
 
   sapply(paste0("Sources/",
                 files.sources),
