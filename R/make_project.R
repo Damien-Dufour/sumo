@@ -18,9 +18,10 @@
 #'
 #'
 #' @export
-make_project <- function (path,
-                          IHC = FALSE,
-                          path_to_QuPath)
+
+make_project2 <- function (path,
+                           IHC = FALSE,
+                           path_to_QuPath)
 {
   if (!dir.exists(path))
     dir.create(path)
@@ -35,26 +36,26 @@ make_project <- function (path,
   dir.create("Sources")
   dir.create("Figures")
   dir.create("Docs")
-  dir.create("Gist")
   dir.create("References")
   if(IHC == TRUE)
-    {if (missing(path_to_QuPath)) {
-      stop("Path argument is required")}
+  {if (missing(path_to_QuPath)) {
+    stop("Path argument is required")}
 
     QuPath_version <- str_sub(path_to_QuPath, start = -6, end = -2)
 
-  dir.create("QP_analysis")
-  dir.create("Raw_images")
-  dir.create("Pictures")
-  file.create("test.groovy")
+    dir.create("QP_analysis")
+    dir.create("Raw_images")
+    dir.create("Pictures")
+    file.create("tmp.groovy")
 
-  sink(file = "test.groovy")
+    sink(file = "tmp.groovy")
 
-  cat('import java.awt.image.BufferedImage
+
+    cat(paste0('import java.awt.image.BufferedImage
 import qupath.lib.images.servers.ImageServerProvider
 
 // Paths
-def directory = new File("./QP_analysis/project.qpproj")
+def directory = new File("./QP_analysis/', basename(path),'.qpproj")
 
 // Create project
 def project = Projects.createProject(directory , BufferedImage.class)
@@ -62,18 +63,18 @@ def project = Projects.createProject(directory , BufferedImage.class)
 // Changes should now be reflected in the project directory
 project.syncChanges()
 
-print("Project created")')
+print("Project created")'))
 
-  sink()
+        sink()
 
-  system(paste0(path_to_QuPath,
-                '"QuPath-',
-                QuPath_version,
-                ' (console).exe" script "',
-                pathf,
-                '/test.groovy"'),
-         intern = T)
-  file.remove("test.groovy")
+        system(paste0(path_to_QuPath,
+                      '"QuPath-',
+                      QuPath_version,
+                      ' (console).exe" script "',
+                      pathf,
+                      '/tmp.groovy"'),
+               intern = T)
+        file.remove("tmp.groovy")
   }
 
   file.create(nameMain)
@@ -91,5 +92,7 @@ print("Project created")')
   cat(paste("---\ntitle: ", basename(path),
             "\noutput: pdf_document\nfontsize: 12pt\n---\n",
             sep = ""))
+  cat("\n Aim : \n\n Hypothesis : \n\n Methods : \n ")
+
   sink()
 }
