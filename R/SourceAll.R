@@ -8,6 +8,7 @@
 #'
 #' @examples
 #'
+#' @import purrr
 #'
 #' @export
 SourceAll <- function()
@@ -16,10 +17,11 @@ SourceAll <- function()
 
 #get all the files in Sources folder that finishes in .R
 
-  files.sources = list.files("Sources/")  %>%
-    subset(endsWith(files.sources,
-                    ".R") == T)
-
+    files.sources = list.files("Sources/")
+    files.sources <- subset(files.sources,
+                            endsWith(files.sources,
+                                     ".R") == T)
+    if (is_empty(files.sources) == F )
   sapply(paste0("Sources/",
                 files.sources),
          source)                      #sources the functions
