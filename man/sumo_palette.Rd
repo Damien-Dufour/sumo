@@ -5,15 +5,22 @@
 \alias{sumo_pal}
 \title{sumo_palette}
 \usage{
-sumo_pal(x = 6)
+sumo_pal(x = 6, diverging = F, reverse = F)
 }
 \arguments{
 \item{x}{number of colour to display, by default 6}
+
+\item{diverging}{if TRUE, creates a purple to yellow diverging palette}
+
+\item{reverse}{to change direction
+#'}
 }
 \description{
 create a palette of colours based on Hokusai wave
 }
 \examples{
+
+library(ggplot2)
 
 ggplot(iris)+
  aes(x = Species,
@@ -22,5 +29,6 @@ ggplot(iris)+
  geom_jitter()+
  scale_color_manual(values = sumo_pal())+
  theme_classic()
+
 
 }

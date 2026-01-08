@@ -2,14 +2,15 @@
 % Please edit documentation in R/make_project.R
 \name{make_project}
 \alias{make_project}
+\alias{make_project2}
 \title{make_project}
 \usage{
-make_project(path, IHC = FALSE, path_to_QuPath)
+make_project2(path, IHC = FALSE, path_to_QuPath)
 }
 \arguments{
 \item{path}{path where to create project}
 
-\item{IHC}{true if it's an IHC and I want jpg, czi and QP folders}
+\item{IHC}{true if it's an IHC and I want tiff, czi and QP folders}
 
 \item{path_to_QuPath}{the path where the QuPath (console).exe is located, should look like this on windows "C:/Users/user_name/AppData/Local/QuPath-0.4.1/"}
 }
