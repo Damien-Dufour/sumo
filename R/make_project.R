@@ -19,7 +19,7 @@
 #'
 #' @export
 
-make_project2 <- function (path,
+make_project <- function (path,
                            IHC = FALSE,
                            path_to_QuPath)
 {
@@ -96,3 +96,4 @@ print("Project created")'))
 
   sink()
 }
+
